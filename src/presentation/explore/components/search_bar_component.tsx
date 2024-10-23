@@ -21,15 +21,15 @@ const SearchBar: React.FC<SearchBarProps> = ({ searchQuery, onSearch }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'transparent', // Dark background color
-    borderRadius: 20, // Rounded corners
+    backgroundColor: 'transparent', 
+    borderRadius: 20, 
     padding: 10,
   },
   input: {
     height: 40,
-    color: 'white', // White text color
-    backgroundColor: '#252739', // Slightly lighter background color
-    borderRadius: 20, // Rounded corners
+    color: 'white', 
+    backgroundColor: '#252739', 
+    borderRadius: 20, 
     paddingHorizontal: 10,
   },
 });

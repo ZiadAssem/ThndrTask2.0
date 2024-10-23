@@ -53,7 +53,6 @@ export class StockDetailsEntity {
         this.round_lot = data.round_lot;
     }
 
-    // Static method to convert instance to plain object
     static toPlainObject(instance: StockDetailsEntity): object {
         return {
             ticker: instance.ticker,
@@ -100,7 +99,6 @@ export class Address {
         this.postal_code = data.postal_code;
     }
 
-    // Static method to convert instance to plain object
     static toPlainObject(instance: Address): object {
         return {
             address1: instance.address1,
@@ -121,7 +119,6 @@ export class Branding {
         this.icon_url = data.icon_url;
     }
 
-    // Static method to convert instance to plain object
     static toPlainObject(instance: Branding): object {
         return {
             logo_url: instance.logo_url,

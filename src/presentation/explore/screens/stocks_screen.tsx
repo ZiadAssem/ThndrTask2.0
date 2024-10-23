@@ -57,7 +57,7 @@ const StocksScreen = () => {
       <SearchBar searchQuery={searchQuery} onSearch={handleSearch} />
       {loading && !moreStocksLoading ? (
         <View style={styles.loadingOverlay}>
-          <Progress.Circle size={30} indeterminate={true} />
+          <Progress.Circle size={40} indeterminate={true} />
         </View>
       ) : searchedStock ? (
         <StockItem ticker={searchedStock.ticker} name={searchedStock.name} searched={true} />

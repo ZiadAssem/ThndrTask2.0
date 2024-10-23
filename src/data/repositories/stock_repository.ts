@@ -16,16 +16,16 @@ export class StockRepository implements StockRepositoryInterface {
         const logoUrl = this.remoteDataSource.fetchStockLogoByTicker(ticker);
         return logoUrl;
     }
-   async getStockDetailsByTicker(ticker: string): Promise<any> {
-       const StockDetailsModel = await this.remoteDataSource.fetchStockDetailsByTicker(ticker);
-         return StockDetailsEntity.toPlainObject(StockDetailsModel.toEntity());
+    async getStockDetailsByTicker(ticker: string): Promise<any> {
+        const StockDetailsModel = await this.remoteDataSource.fetchStockDetailsByTicker(ticker);
+        return StockDetailsEntity.toPlainObject(StockDetailsModel.toEntity());
     }
 
-    async getStocks(limit:number): Promise<{ stocks:any [], nextUrl: string | null }> {
+    async getStocks(limit: number): Promise<{ stocks: any[], nextUrl: string | null }> {
         const stockModels = await this.remoteDataSource.fetchStocks(limit);
 
         return {
-            stocks:stockModels['stocks'].map((model: StockModel) => StockEntity.toPlainObject( model.toEntity())),
+            stocks: stockModels['stocks'].map((model: StockModel) => StockEntity.toPlainObject(model.toEntity())),
             nextUrl: stockModels['nextUrl']
         };
 

@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 interface AltTextComponentProps {
     ticker: string;
 }
-
+// This component is used to display the ticker of a stock when the stock image is not available
 export const AltTextComponent: React.FC<AltTextComponentProps> = ({ ticker }) => {
     return (
         <View style={styles.textBox}>
