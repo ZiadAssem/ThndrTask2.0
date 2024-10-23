@@ -61,8 +61,9 @@ export class PolygonDataSource implements PolygonDataSourceInterface {
                     'Content-Type': 'application/json',
                 },
             });
-
-            return new StockDetailsModel(response.data);
+            console.log(`${this.apiBase}/${ticker}${this.apiSuffix}&apiKey=${this.apiKey}`);
+            console.log(`logging response ${response.data.results}`);
+            return new StockDetailsModel(response.data.results);
         } catch (error) {
             console.error(`Error fetching stock: ${ticker}`, error); // Log the complete error
             throw new Error('Error fetching stock: ' + (error as Error).message);

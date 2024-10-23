@@ -16,9 +16,9 @@ export class StockRepository implements StockRepositoryInterface {
         const logoUrl = this.remoteDataSource.fetchStockLogoByTicker(ticker);
         return logoUrl;
     }
-   async getStockDetailsByTicker(ticker: string): Promise<StockDetailsEntity> {
+   async getStockDetailsByTicker(ticker: string): Promise<any> {
        const StockDetailsModel = await this.remoteDataSource.fetchStockDetailsByTicker(ticker);
-         return StockDetailsModel.toEntity();
+         return StockDetailsEntity.toPlainObject(StockDetailsModel.toEntity());
     }
 
     async getStocks(limit:number): Promise<{ stocks:any [], nextUrl: string | null }> {

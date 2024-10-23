@@ -8,7 +8,10 @@ import { PolygonDataSource } from './data/sources/polygon_data_source';
 import { GetStocksUseCase } from './domain/usecases/get_stocks';
 import { StockRepository } from './data/repositories/stock_repository';
 import StocksScreen from './presentation/explore/screens/stocks_screen';
+import TopBar from './common/components/top_bar_component';
 
+
+const myImageSource = '../assets/images/nasdaq.png';
 const StockList = () => {
 
 
@@ -16,6 +19,7 @@ const StockList = () => {
     return (
         <Provider store={store}>
             <View style={style.container}>
+                <TopBar imageSource={require(myImageSource)}></TopBar>
                 <StocksScreen></StocksScreen>
             </View>
         </Provider>

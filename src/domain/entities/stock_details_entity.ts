@@ -52,6 +52,37 @@ export class StockDetailsEntity {
         this.weighted_shares_outstanding = data.weighted_shares_outstanding;
         this.round_lot = data.round_lot;
     }
+
+    // Static method to convert instance to plain object
+    static toPlainObject(instance: StockDetailsEntity): object {
+        return {
+            ticker: instance.ticker,
+            name: instance.name,
+            market: instance.market,
+            locale: instance.locale,
+            primary_exchange: instance.primary_exchange,
+            type: instance.type,
+            active: instance.active,
+            currency_name: instance.currency_name,
+            cik: instance.cik,
+            composite_figi: instance.composite_figi,
+            share_class_figi: instance.share_class_figi,
+            market_cap: instance.market_cap,
+            phone_number: instance.phone_number,
+            address: Address.toPlainObject(instance.address),
+            description: instance.description,
+            sic_code: instance.sic_code,
+            sic_description: instance.sic_description,
+            ticker_root: instance.ticker_root,
+            homepage_url: instance.homepage_url,
+            total_employees: instance.total_employees,
+            list_date: instance.list_date,
+            branding: Branding.toPlainObject(instance.branding),
+            share_class_shares_outstanding: instance.share_class_shares_outstanding,
+            weighted_shares_outstanding: instance.weighted_shares_outstanding,
+            round_lot: instance.round_lot,
+        };
+    }
 }
 
 export class Address {
@@ -68,6 +99,17 @@ export class Address {
         this.state = data.state;
         this.postal_code = data.postal_code;
     }
+
+    // Static method to convert instance to plain object
+    static toPlainObject(instance: Address): object {
+        return {
+            address1: instance.address1,
+            address2: instance.address2,
+            city: instance.city,
+            state: instance.state,
+            postal_code: instance.postal_code,
+        };
+    }
 }
 
 export class Branding {
@@ -77,5 +119,13 @@ export class Branding {
     constructor(data: any) {
         this.logo_url = data.logo_url;
         this.icon_url = data.icon_url;
+    }
+
+    // Static method to convert instance to plain object
+    static toPlainObject(instance: Branding): object {
+        return {
+            logo_url: instance.logo_url,
+            icon_url: instance.icon_url,
+        };
     }
 }

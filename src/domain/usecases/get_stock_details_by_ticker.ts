@@ -10,7 +10,7 @@ export class GetStockDetailsByTickerUseCase {
         this.stockRepository = stockRepository;
     }
 
-    async execute(ticker : string): Promise<StockDetailsEntity> {
+    async execute(ticker : string): Promise<any> {
         return await this.stockRepository.getStockDetailsByTicker(ticker);
     }
 }
