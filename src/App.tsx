@@ -21,7 +21,7 @@ const StockList = () => {
     return (
         <Provider store={store}>
             <View style={style.container}>
-            <StatusBar barStyle="light-content" backgroundColor={'#1e212f'}/>
+            <StatusBar barStyle="light-content" backgroundColor={'#191927'}/>
                 <TopBar imageSource={require(myImageSource)}></TopBar>
                 <StocksScreen></StocksScreen>
             </View>

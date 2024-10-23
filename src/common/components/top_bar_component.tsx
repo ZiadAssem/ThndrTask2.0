@@ -16,7 +16,7 @@ const TopBar: React.FC<TopBarProps> = ({ imageSource }) => {
 const styles = StyleSheet.create({
   container: {
     // alignContent:'left',
-    backgroundColor: 'transparent', // Adjust the background color as needed
+    backgroundColor: '#191927', // Adjust the background color as needed
     alignItems: 'flex-start',
     justifyContent: 'center',
     padding: 10,
