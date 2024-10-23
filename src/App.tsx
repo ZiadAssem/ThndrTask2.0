@@ -20,9 +20,12 @@ const StockList = () => {
 
     return (
         <Provider store={store}>
-            <View style={style.container}>
-            <StatusBar barStyle="light-content" backgroundColor={'#191927'}/>
+            <View >
+            <StatusBar barStyle="light-content" backgroundColor={'#191927'} />
                 <TopBar imageSource={require(myImageSource)}></TopBar>
+                </View>
+                <View style={style.container}>
+
                 <StocksScreen></StocksScreen>
             </View>
         </Provider>
@@ -33,8 +36,9 @@ const style = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#1e212f',
-        padding: 10,
+         padding: 10,
     },
+   
 });
 
 
