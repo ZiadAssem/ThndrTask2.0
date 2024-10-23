@@ -1,7 +1,5 @@
-// src/domain/repositories/StockRepositoryInterface.ts
 
 import { StockDetailsEntity } from "../entities/stock_details_entity";
-import { StockEntity } from "../entities/stock_entity";
 
 export interface StockRepositoryInterface {
     getStocks(limit:number): Promise<{ stocks: any[], nextUrl: string | null }>;

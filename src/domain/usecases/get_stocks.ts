@@ -1,6 +1,5 @@
 
 import { StockRepositoryInterface } from '../repositories/stock_repository_interface';
-import { StockEntity } from '../entities/stock_entity';
 
 export class GetStocksUseCase {
     private stockRepository: StockRepositoryInterface;

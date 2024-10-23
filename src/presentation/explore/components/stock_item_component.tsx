@@ -1,9 +1,7 @@
-// StockItem.tsx
-import React, { useEffect } from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-// import { fetchStockDetails } from '../redux/stock_slice';
-import { AppDispatch } from '../../../redux/redux_store';
+
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+
 import { AltTextComponent } from './alt_text_component';
 
 interface StockItemProps {
@@ -67,7 +65,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: '#fff',
-    textAlign: 'center', // Ensure text is centered
+    textAlign: 'center', 
   },
   nameText: {
     fontSize: 10,

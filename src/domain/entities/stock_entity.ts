@@ -1,6 +1,3 @@
-// src/domain/entities/StockEntity.ts
-
-import { StockDetailsEntity } from "./stock_details_entity";
 
 export class StockEntity {
     ticker: string;

@@ -1,5 +1,3 @@
-// src/data/models/StockModel.ts
-
 import { StockEntity } from "../../domain/entities/stock_entity";
 export class StockModel extends StockEntity {
     constructor(data: any) {
