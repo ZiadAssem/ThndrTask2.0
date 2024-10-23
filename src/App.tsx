@@ -9,10 +9,14 @@ import { GetStocksUseCase } from './domain/usecases/get_stocks';
 import { StockRepository } from './data/repositories/stock_repository';
 import StocksScreen from './presentation/explore/screens/stocks_screen';
 import TopBar from './common/components/top_bar_component';
-
+import SplashScreen from 'react-native-splash-screen';
 
 const myImageSource = '../assets/images/nasdaq.png';
 const StockList = () => {
+    useEffect(() => {
+        SplashScreen.hide();
+    }
+)
 
 
 
