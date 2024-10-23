@@ -30,4 +30,12 @@ export class StockRepository implements StockRepositoryInterface {
         };
 
     }
+
+    async getMoreStocks(newUrl: string): Promise<{ stocks: any[]; nextUrl: string | null; }> {
+        const stockModels = await this.remoteDataSource.fetchMoreStocks(newUrl);
+        return {
+            stocks: stockModels['stocks'].map((model: StockModel) => StockEntity.toPlainObject(model.toEntity())),
+            nextUrl: stockModels['nextUrl']
+        };
+    }
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, FlatList, StyleSheet, Text } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchStocks, fetchStockByTicker, StocksState } from '../redux/stock_slice';
+import { fetchStocks, fetchStockByTicker, fetchMoreStocks, StocksState } from '../redux/stock_slice';
 import StockItem from '../components/stock_item_component';
 import { AppDispatch } from '../../../redux/redux_store';
 import * as Progress from 'react-native-progress';
@@ -9,20 +9,23 @@ import SearchBar from '../components/search_bar_component';
 
 const StocksScreen = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [moreStocksLoading, setMoreStocksLoading] = useState(false);
   const [limit, setLimit] = useState(30);
+
+  const dispatch = useDispatch<AppDispatch>();
+  
   const loading = useSelector((state: any) => state.todo.stocks.loading);
+  const moreStocksLoading = useSelector((state:any)=>state.todo.stocks.loadingMore);
   const error = useSelector((state: any) => state.todo.stocks.error);
   const stocks = useSelector((state: any) => state.todo.stocks.stocks);
   const searchedStock = useSelector((state: any) => state.todo.stocks.stockDetails);
-  const dispatch = useDispatch<AppDispatch>();
+  const nextUrl = useSelector((state: any) => state.todo.stocks.nextUrl);
 
+  // Fetch stocks when the component mounts
   useEffect(() => {
     const fetchStocksData = async () => {
-      if (!loading && !searchQuery) { // Only fetch if no search query
+      if (!searchQuery && stocks.length === 0) { // Only fetch if no search query and no stocks loaded
         try {
-          await dispatch(fetchStocks(limit)); // Fetch stocks based on the limit
-
+          await dispatch(fetchStocks(limit)); // Fetch initial stocks
         } catch (error) {
           console.error('Failed to fetch stocks:', error);
         }
@@ -31,35 +34,21 @@ const StocksScreen = () => {
     fetchStocksData();
   }, [dispatch, limit, searchQuery]);
 
+  // Load more stocks when the user scrolls to the bottom
   const loadMoreStocks = () => {
-    if (!moreStocksLoading && !loading && !searchQuery) {
-      setMoreStocksLoading(true);
-      setLimit((prevLimit) => prevLimit + 20);
+    if (!loading && !moreStocksLoading && nextUrl && !searchQuery) {
+      dispatch(fetchMoreStocks(nextUrl)); // Fetch more stocks using nextUrl
     }
   };
 
-  useEffect(() => {
-    const fetchMoreStocks = async () => {
-      if (moreStocksLoading && !searchQuery) { // Only fetch more stocks if no search query
-        try {
-          await dispatch(fetchStocks(limit)); // Fetch stocks with the updated limit
-        } catch (error) {
-          console.error('Failed to fetch more stocks:', error);
-        } finally {
-          setMoreStocksLoading(false); // Reset pagination loading state
-        }
-      }
-    };
-    fetchMoreStocks();
-  }, [limit, dispatch, moreStocksLoading, searchQuery]);
-
+  // Search handler for stocks by ticker
   const handleSearch = (query: string) => {
     setSearchQuery(query);
     if (query) {
       dispatch(fetchStockByTicker(query));
     } else {
       dispatch({ type: 'stocks/setSearchedStock', payload: null });
-      setLimit(30);
+      setLimit(30); // Reset limit when clearing search
     }
   };
 
@@ -78,11 +67,13 @@ const StocksScreen = () => {
           numColumns={2}
           renderItem={({ item }) => <StockItem ticker={item.ticker} name={item.name} searched={false} />}
           keyExtractor={(item) => item.ticker}
-          onEndReached={loadMoreStocks} // Load more stocks on end reached
+          onEndReached={loadMoreStocks} // Load more stocks when reaching the end
           onEndReachedThreshold={0.5} // Trigger when 50% of the screen height is reached
-          ListFooterComponent={moreStocksLoading ? <View style={styles.loadingOverlay}>
-            <Progress.Circle size={30} indeterminate={true} />
-          </View> : null}
+          ListFooterComponent={moreStocksLoading ? (
+            <View style={styles.loadingOverlay}>
+              <Progress.Circle size={30} indeterminate={true} />
+            </View>
+          ) : null}
         />
       ) : error ? (
         <Text>{error}</Text>

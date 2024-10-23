@@ -8,6 +8,7 @@ interface PolygonDataSourceInterface {
     fetchStocks(limit: number): Promise<{ stocks: StockModel[], nextUrl: string | null }>;
     fetchStockLogoByTicker(ticker: string): Promise<string>;
     fetchStockDetailsByTicker(ticker: string): Promise<StockDetailsModel>;
+    fetchMoreStocks(newUrl: string): Promise<{ stocks: StockModel[], nextUrl: string | null }>;
 
 
 
@@ -67,6 +68,23 @@ export class PolygonDataSource implements PolygonDataSourceInterface {
         } catch (error) {
             console.error(`Error fetching stock: ${ticker}`, error); // Log the complete error
             throw new Error('Error fetching stock: ' + (error as Error).message);
+        }
+    }
+   async fetchMoreStocks(newUrl: string): Promise<{ stocks: StockModel[]; nextUrl: string | null; }> {
+        try {
+            const response = await axios.get(newUrl, {
+                headers: {
+                    'Authorization': `Bearer ${this.apiKey}`,
+                    'Content-Type': 'application/json',
+                },
+            });
+            return {
+                stocks: response.data.results.map((item: any) => new StockModel(item)),
+                nextUrl: response.data.next_url
+            };
+        } catch (error) {
+            console.error(`Error fetching more stocks: ${newUrl}`, error); // Log the complete error
+            throw new Error('Error fetching more stocks: ' + (error as Error).message);
         }
     }
 
