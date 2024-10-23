@@ -106,16 +106,17 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     flex: 1,
-    alignSelf: 'center',
-    alignContent: 'center',
-    justifyContent: 'center',
+    alignSelf: 'baseline',
+     alignContent: 'stretch',
+    // justifyContent: 'center',
   },
 
   searchedContainer:{
     width:'100%',
     height:250,
+    alignSelf:'auto',
     alignContent: 'center',
-    justifyContent: 'center',
+    // justifyContent: 'center',
   }
 });
 
