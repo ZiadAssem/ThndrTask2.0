@@ -35,7 +35,7 @@ const initialState: StocksState = {
     stockDetails: null,
     stocks: [],
     nextUrl: null,
-    loading: false,
+    loading: true,
     error: null,
 };
 
@@ -55,7 +55,6 @@ const stocksSlice = createSlice({
             })
             .addCase(fetchStocks.fulfilled, (state, action) => {
                 state.loading = false;
-
                 // Combine new stocks with existing stocks, avoiding duplicates
                 const existingStocksMap = new Map(state.stocks.map(stock => [stock.ticker, stock]));
                 action.payload.stocks['stocks'].forEach(stock => {

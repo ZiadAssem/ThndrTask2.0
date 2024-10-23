@@ -13,12 +13,13 @@ const StocksScreen = () => {
   const [searchQuery, setSearchQuery] = useState(''); // State for the search query
   const [moreStocksLoading, setMoreStocksLoading] = useState(false); // Pagination loading
   const [limit, setLimit] = useState(30); // Start with a limit of 30
-  const loading = useSelector((state: StocksState) => state.loading); // Initial load flag
+  const loading = useSelector((state: any) => state.todo.stocks.loading); // Initial load flag
+  // const loading = true;
   const error = useSelector((state: any) => state.todo.stocks.error);
   const stocks: StockEntity[] = useSelector((state: any) => state.todo.stocks.stocks);
   const searchedStock: StockDetailsEntity | null = useSelector((state: any) => state.todo.stocks.stockDetails);
   const dispatch = useDispatch<AppDispatch>();
-  console.log(searchedStock?.name);
+  console.log(`loading is ${loading}`);
 
   // Function to handle search input changes
   const handleSearch = (query: string) => {
@@ -38,6 +39,7 @@ const StocksScreen = () => {
       if (!loading && !searchQuery) { // Only fetch if no search query
         try {
           await dispatch(fetchStocks(limit)); // Fetch stocks based on the limit
+          
         } catch (error) {
           console.error('Failed to fetch stocks:', error);
         }
@@ -71,10 +73,12 @@ const StocksScreen = () => {
   }, [limit, dispatch, moreStocksLoading, searchQuery]);
 
   return (
-    <View style={loading && !stocks.length ? null : (searchedStock ? styles.searchedContainer : styles.container)}>
+    <View style={searchedStock ? styles.searchedContainer : styles.container}>
       <SearchBar searchQuery={searchQuery} onSearch={handleSearch} />
-      {loading && !stocks.length ? (
+      {loading && !moreStocksLoading ? (
+        <View style = {styles.loadingOverlay}>
         <Progress.Circle size={30} indeterminate={true} />
+        </View>
       )
          :
         searchedStock?(
@@ -91,7 +95,9 @@ const StocksScreen = () => {
             keyExtractor={(item) => item.ticker}
             onEndReached={loadMoreStocks} // Load more stocks on end reached
             onEndReachedThreshold={0.5} // Trigger when 50% of the screen height is reached
-            ListFooterComponent={moreStocksLoading ? <Progress.Circle size={30} indeterminate={true} /> : null}
+            ListFooterComponent={moreStocksLoading ?         <View style = {styles.loadingOverlay}>
+            <Progress.Circle size={30} indeterminate={true} />
+            </View> : null}
           />
         ) : error ? (
           <Text>{error}</Text>
@@ -106,8 +112,8 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     flex: 1,
-    alignSelf: 'baseline',
-     alignContent: 'stretch',
+    alignSelf: 'center',
+     alignContent: 'center',
     // justifyContent: 'center',
   },
 
@@ -117,7 +123,17 @@ const styles = StyleSheet.create({
     alignSelf:'auto',
     alignContent: 'center',
     // justifyContent: 'center',
-  }
+  },
+    loadingOverlay: {
+    position: 'absolute', // This makes the spinner overlay on top of other content
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // backgroundColor: 'rgba(255, 255, 255, 0.8)', // Optional: slight overlay effect to make the spinner more visible
+  },
 });
 
 export default StocksScreen;
