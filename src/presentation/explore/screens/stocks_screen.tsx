@@ -13,12 +13,12 @@ const StocksScreen = () => {
 
   const dispatch = useDispatch<AppDispatch>();
   
-  const loading = useSelector((state: any) => state.todo.stocks.loading);
-  const moreStocksLoading = useSelector((state:any)=>state.todo.stocks.loadingMore);
-  const error = useSelector((state: any) => state.todo.stocks.error);
-  const stocks = useSelector((state: any) => state.todo.stocks.stocks);
-  const searchedStock = useSelector((state: any) => state.todo.stocks.stockDetails);
-  const nextUrl = useSelector((state: any) => state.todo.stocks.nextUrl);
+  const loading = useSelector((state: any) => state.stocks.stocks.loading);
+  const moreStocksLoading = useSelector((state:any)=>state.stocks.stocks.loadingMore);
+  const error = useSelector((state: any) => state.stocks.stocks.error);
+  const stocks = useSelector((state: any) => state.stocks.stocks.stocks);
+  const searchedStock = useSelector((state: any) => state.stocks.stocks.stockDetails);
+  const nextUrl = useSelector((state: any) => state.stocks.stocks.nextUrl);
 
   // Fetch stocks when the component mounts
   useEffect(() => {
