@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, FlatList, StyleSheet, Text } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchStocks, fetchStockByTicker, fetchMoreStocks } from '../redux/stock_slice';
+import { fetchStocks, fetchStockByTicker, fetchMoreStocks } from '../redux/stock_thunk';
 import StockItem from '../components/stock_item_component';
 import { AppDispatch } from '../../../redux/redux_store';
 import * as Progress from 'react-native-progress';
